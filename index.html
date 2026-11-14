@@ -1,17 +1,387 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Language" content="ja">
-<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
-<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
-<meta name="ProgId" content="FrontPage.Editor.Document">
-<title>Tamazusa OS �̃y�[�W�ɂ悤����</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f9f4e8">
+<title>Tamazusa OS Project — Tamazusa.org</title>
+<meta name="description" content="Tamazusa OS (玉梓): 教育を目的とした T-Kernel 2.0 ベースの64ビット OS / An educational 64-bit OS built on T-Kernel 2.0">
+<style>
+:root{
+  /* 和紙:鳥の子〜生成りの紙色に、檜皮・煤竹・墨茶の木の色を合わせる */
+  --bg:#f9f4e8;      /* 生成り(白寄りの和紙) */
+  --card:#fdfaf2;    /* 鳥の子色(さらに白寄り) */
+  --line:#e4d9bf;    /* 白茶(淡め) */
+  --fg:#3a2d22;      /* 墨茶 */
+  --muted:#6e5a47;   /* 煤竹色 */
+  --accent:#7d3f2c;  /* 檜皮色 */
+  --gold:#b8862b;    /* 山吹茶 */
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.010 0.50' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.26  0 0 0 0 0.16  0 0 0 0.6 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark){
+  /* 黒檀・焦茶の暗い木肌 */
+  :root{ --bg:#221a14; --card:#2c231b; --line:#46392c; --fg:#ece0c8; --muted:#b9a88c; --accent:#d9a66b; --gold:#d2a447; --paper:none; }
+}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:var(--paper);color:var(--fg);line-height:1.8;
+  font-family:"Hiragino Sans","Yu Gothic","Meiryo",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line);padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.logo{font-weight:700;letter-spacing:.04em}
+nav a{margin-left:16px;color:var(--muted);text-decoration:none;font-size:.9rem}
+nav a:hover{color:var(--accent)}
+a{color:var(--accent)}
+.hero{padding:32px 0 40px}
+.topimg{margin-top:24px}
+.topimg img{display:block;width:100%;height:clamp(200px,38vw,360px);object-fit:cover;object-position:50% 55%;border-radius:12px}
+.hero h1{font-size:clamp(2rem,6vw,3rem);margin:0 0 8px;letter-spacing:.02em}
+.hero .ja{font-size:1.15rem;margin:0}
+.hero .en{color:var(--muted);margin:6px 0 0}
+section{padding:36px 0;border-top:1px solid var(--line)}
+h2{font-size:1.3rem;margin:0 0 4px}
+h2 small{display:block;color:var(--muted);font-weight:400;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h3{margin:0 0 6px;font-size:1rem}
+.card p{margin:0}
+.card .en{color:var(--muted);font-size:.9rem}
+.bi{margin:10px 0}
+.bi .en{color:var(--muted);display:block}
+ul{padding-left:1.2em}
+li{margin-bottom:8px}
+li .en{color:var(--muted);display:block}
+.scroll{overflow-x:auto;margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:640px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;font-size:.92rem}
+th{background:rgba(125,63,44,.07);font-weight:600}
+td .en{display:block;color:var(--muted);font-size:.85rem}
+th .en{display:block;color:var(--muted);font-weight:400;font-size:.8rem}
+.status{margin-top:14px}
+.tag{display:inline-block;font-size:.75rem;padding:0 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);margin-right:6px}
+.notice{margin-top:18px;padding:12px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;background:var(--card);font-size:.95rem}
+.notice .en{display:block;color:var(--muted);font-size:.88rem}
+.badge{display:inline-block;font-size:.8rem;padding:2px 12px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;margin-bottom:14px;letter-spacing:.04em}
+figure{margin:18px 0 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+figcaption{margin-top:10px;font-size:.9rem}
+figcaption .en{display:block;color:var(--muted);font-size:.85rem}
+.warn{margin-top:14px;padding:14px 18px;border:1px solid var(--gold);border-left:5px solid var(--gold);border-radius:8px;background:rgba(184,134,43,.12)}
+.warn strong{display:block;margin-bottom:4px}
+.warn ul{margin:6px 0 0}
+.btn{display:inline-block;padding:4px 14px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);text-decoration:none;font-size:.88rem;margin:2px 6px 2px 0}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn.off{border-color:var(--line);color:var(--muted);cursor:default;pointer-events:none}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;word-break:break-all}
+td.num{white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:.85rem}
+</style>
 </head>
-
 <body>
 
-<p><font size="6">Tamazusa OS �̃y�[�W�ɂ悤����</font></p>
+<header>
+  <div class="wrap">
+    <div class="logo">Tamazusa.org</div>
+    <nav>
+      <a href="#download">ダウンロード / Download</a>
+      <a href="#about">概要 / About</a>
+      <a href="#different">差別化 / Difference</a>
+      <a href="#features">特徴 / Features</a>
+      <a href="#status">現状 / Status</a>
+      <a href="#roadmap">今後 / Roadmap</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="topimg">
+    <img src="top-cosmos.webp" alt="青空と太陽を背に咲くコスモスの花 / Cosmos flowers in bloom against a blue sky and the sun" width="1600" height="1200">
+  </div>
+
+  <div class="hero">
+    <span class="badge">試作段階 / Prototype</span>
+    <h1>Tamazusa OS <span style="font-weight:400">(玉梓)</span></h1>
+    <p class="ja">教育を目的とした、T-Kernel 2.0 ベースの64ビット OS。POSIX/Linux 互換でソフトウェア資産を育てる。</p>
+    <p class="en">An educational 64-bit operating system built on T-Kernel 2.0, with POSIX/Linux compatibility so that software can grow on it.</p>
+    <div class="notice">
+      このプロジェクトは<strong>試作段階</strong>です。機能や仕様は予告なく変わり、動かない部分もあります。
+      <span class="en">This project is at the <strong>prototype stage</strong>. Features and specifications may change without notice, and some parts do not work yet.</span>
+    </div>
+  </div>
+
+  <section id="screenshot">
+    <h2>画面<small>Screenshot</small></h2>
+    <figure>
+      <img src="screenshot-desktop.jpg" alt="Tamazusa OS のデスクトップ。メモ帳に「日本語入力を実装し文章が書けるようになりました。」と入力されている。 / The Tamazusa OS desktop with a notepad window showing a Japanese sentence typed with the built-in input method." loading="lazy">
+      <figcaption>
+        試作版のデスクトップ。メモ帳で、SKK 方式の日本語入力により文章が書けるようになりました(QEMU 上)。
+        <span class="en">The prototype desktop. Sentences can now be written in the notepad with SKK-style Japanese input (on QEMU).</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="download">
+    <h2>ダウンロード<small>Download</small></h2>
+
+    <div class="warn">
+      <strong>はじめにお読みください / Please read first</strong>
+      <ul>
+        <li>これは<b>動作確認用のプレビュー版</b>です。製品としての品質や互換性は保証しません。
+          <span class="en">This is a <b>preview for testing</b>. No warranty; not production quality.</span></li>
+        <li>動作確認は<b>仮想マシン(QEMU)が中心</b>です。実機での確認は十分ではありません。実機で試す場合は、大切なデータのあるディスクには触れず、自己責任で行ってください。
+          <span class="en">Tested mainly in <b>QEMU</b>; real-hardware testing is limited. If you try real hardware, keep it away from disks with important data, at your own risk.</span></li>
+        <li>POSIX は一部のみの実装で、準拠を主張するものではありません。カーネルのタスク機構は仮の実装で、リアルタイム性は測っていません。
+          <span class="en">Only part of POSIX is implemented, with no conformance claimed. The kernel’s task mechanism is a provisional implementation, and real-time behavior has not been measured.</span></li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:28px;font-size:1.05rem">アーキテクチャ別 / By architecture</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>対象<span class="en">Target</span></th>
+            <th>状況<span class="en">Status</span></th>
+            <th>入手先<span class="en">Get it</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>x86_64</b></td>
+            <td>プレビュー版 v0.1.0(2026年10月31日)。QEMU で ISO から起動し、デスクトップまで動作。
+              <span class="en">Preview v0.1.0 (31 Oct 2026). Boots from the ISO under QEMU to the desktop.</span></td>
+            <td>
+              <a class="btn" href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/tag/v0.1.0">リリースページ / Release page</a>
+              <a class="btn" href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/download/v0.1.0/tamazusa-os-20261031.iso">ISO</a>
+            </td>
+          </tr>
+          <tr>
+            <td><b>AArch64</b></td>
+            <td>カーネルは QEMU で動作確認。公開リリースはまだありません。
+              <span class="en">Kernel verified on QEMU. No public release yet.</span></td>
+            <td><span class="btn off">準備中 / Coming later</span></td>
+          </tr>
+          <tr>
+            <td><b>RISC-V64</b></td>
+            <td>公開リリースはまだありません。
+              <span class="en">No public release yet.</span></td>
+            <td><span class="btn off">準備中 / Coming later</span></td>
+          </tr>
+          <tr>
+            <td><b>LoongArch64</b></td>
+            <td>カーネルを試作し、QEMU で動作確認。公開リリースはまだありません。
+              <span class="en">Kernel prototype, verified on QEMU. No public release yet.</span></td>
+            <td><span class="btn off">準備中 / Coming later</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="en" style="color:var(--muted);font-size:.85rem;margin-top:8px">
+      新しいリリースは <a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases">GitHub の Releases</a> に掲載します。 / New releases will be posted on <a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases">GitHub Releases</a>.
+    </p>
+
+    <h3 style="margin-top:28px;font-size:1.05rem">x86_64 v0.1.0 のファイル / Files</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>ファイル<span class="en">File</span></th>
+            <th>内容<span class="en">What it is</span></th>
+            <th>サイズ<span class="en">Size</span></th>
+            <th>SHA-256</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/download/v0.1.0/tamazusa-os-20261031.iso"><code>tamazusa-os-20261031.iso</code></a></td>
+            <td>起動用イメージ<span class="en">Bootable image</span></td>
+            <td class="num">99,418,112 B</td>
+            <td><code>c8cc3e5178e11a1c62129a69ce1a5c66e1960c774326de147f81d6177edb206e</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/download/v0.1.0/tamazusa-os-src-20261031.tar.xz"><code>tamazusa-os-src-20261031.tar.xz</code></a></td>
+            <td>ソースの束(大きなフォント等を除く)<span class="en">Source bundle (large fonts etc. excluded)</span></td>
+            <td class="num">27,049,700 B</td>
+            <td><code>14e3a5cae37aeb5a74bd0f60571aa7be688b7bab384642d265dd512d8db0eb44</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/download/v0.1.0/tamazusa-os-gpl-sources-20261031.tar"><code>tamazusa-os-gpl-sources-20261031.tar</code></a></td>
+            <td>同梱の GPL / LGPL ソフトウェアの対応ソースとライセンス文<span class="en">Corresponding source and licenses of bundled GPL/LGPL software</span></td>
+            <td class="num">33,433,600 B</td>
+            <td><code>c6c7423a7e062d1177947b40ce9aa6b73439bb878d990cc01a89c7ae17db584f</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os/releases/download/v0.1.0/tamazusa-os-qt-relink-20261031.tar.xz"><code>tamazusa-os-qt-relink-20261031.tar.xz</code></a></td>
+            <td>改変した Qt に再リンクするための一式(Qt 6.8.0 は LGPL-3.0)<span class="en">Files to relink against a modified Qt (Qt 6.8.0 is LGPL-3.0)</span></td>
+            <td class="num">14,370,520 B</td>
+            <td><code>0f61498242c2c0cfd9f306c29f5968125f1b150c44e5a8038a4f7f655f1607f7</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bi" style="margin-top:18px">
+      <b>ダウンロードの確認</b>:ISO を入手したら SHA-256 を計算し、上の値と一致するか確かめてください。Windows は <code>certutil -hashfile ファイル名 SHA256</code>、Linux / macOS は <code>sha256sum ファイル名</code>(macOS は <code>shasum -a 256 ファイル名</code>)です。
+      <span class="en"><b>Verify your download</b>: compute the SHA-256 and compare it with the value above. On Windows use <code>certutil -hashfile FILE SHA256</code>; on Linux use <code>sha256sum FILE</code>; on macOS use <code>shasum -a 256 FILE</code>.</span>
+    </div>
+    <div class="bi">
+      <b>起動のしかた</b>:QEMU などの仮想マシンで ISO から起動します。手順と必要な環境は、<a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os">リポジトリ</a>の README と docs を参照してください。
+      <span class="en"><b>How to run</b>: boot the ISO in a virtual machine such as QEMU. See the README and docs in the <a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os">repository</a> for steps and requirements.</span>
+    </div>
+
+    <h3 style="margin-top:28px;font-size:1.05rem">ライセンス / Licenses</h3>
+    <ul>
+      <li>作者が書いたコードは MIT ライセンスです。
+        <span class="en">Code written by the author is under the MIT License.</span></li>
+      <li>同梱の第三者ソフトウェアは、それぞれ元のライセンスに従います(GPL、LGPL、SIL OFL など)。T-Kernel 2.0 由来の部分は T-License 2.2 に従います。
+        <span class="en">Bundled third-party software keeps its own licenses (GPL, LGPL, SIL OFL and others). Parts derived from T-Kernel 2.0 follow T-License 2.2.</span></li>
+      <li>GPL / LGPL ソフトウェアのソースは、上の <code>gpl-sources</code> で提供しています。詳しくはリポジトリの <code>NOTICE</code> と <code>SOURCE_OFFER.txt</code> を参照してください。
+        <span class="en">Source for GPL/LGPL software is provided in <code>gpl-sources</code> above. See <code>NOTICE</code> and <code>SOURCE_OFFER.txt</code> in the repository.</span></li>
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>概要<small>About</small></h2>
+    <div class="bi">
+      Tamazusa OS Project は、2025年10月に始まった独立プロジェクトです。旧称は「B-Free x86_64」で、1990年代の B-Free プロジェクトのアーカイブを参考に始めましたが、元の B-Free プロジェクトとは別物で、関係はありません。現在は大部分を書き直した新しい64ビット OS として、一人の開発者が開発しています。
+      <span class="en">The Tamazusa OS Project is an independent project started in October 2025. Formerly called “B-Free x86_64”, it began with the archive of the 1990s B-Free project as a reference, but it is not the original B-Free project and has no affiliation with it. It is now a largely rewritten 64-bit OS developed by a single developer.</span>
+    </div>
+    <div class="bi">
+      カーネルは、μITRON の系譜を継ぐ TRON プロジェクトのリアルタイム OS「T-Kernel 2.0」(T-Engine 由来)を64ビット化したものです。学生や若いエンジニアが OS の仕組みを分解して学べる教材であることを第一の目的としています。
+      <span class="en">The kernel is T-Kernel 2.0, the TRON Project real-time OS descended from μITRON and originating in T-Engine, extended to 64 bits. Its first purpose is to be teaching material that students and young engineers can take apart to learn how an operating system works.</span>
+    </div>
+  </section>
+
+  <section id="different">
+    <h2>主流の BTRON との違い<small>How it differs from mainstream BTRON</small></h2>
+    <div class="bi">
+      BTRON は歴史的に、ソフトウェア資産が育たないことが弱点でした。多くの BTRON 実装が仕様への忠実さや決定性を重んじるのに対し、Tamazusa OS は「既存のオープンソース資産をそのまま動かす」ことを選んでいます。
+      <span class="en">BTRON has historically been held back by a shortage of software. Where many BTRON implementations put specification fidelity and determinism first, Tamazusa OS chooses to run existing open-source software as it is.</span>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>観点<span class="en">Aspect</span></th>
+            <th>仕様重視の BTRON 系実装<span class="en">Specification-first BTRON implementations</span></th>
+            <th>Tamazusa OS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>目的<span class="en">Purpose</span></td>
+            <td>仕様の純度と決定的な動作<span class="en">Specification purity and deterministic behavior</span></td>
+            <td>教育教材とソフトウェア資産の成長<span class="en">Teaching material and growth of a software ecosystem</span></td>
+          </tr>
+          <tr>
+            <td>カーネル以外の層<span class="en">Layers above the kernel</span></td>
+            <td>BTRON の GUI・アプリ層を備える<span class="en">Keep the BTRON GUI and application layers</span></td>
+            <td>旧 BTRON の GUI・アプリ層は外し、POSIX/Linux 互換層に置き換え<span class="en">Legacy BTRON GUI and application layers removed; replaced by a POSIX/Linux compatibility layer</span></td>
+          </tr>
+          <tr>
+            <td>ソフトウェア<span class="en">Software</span></td>
+            <td>BTRON 向けに作る<span class="en">Written for BTRON</span></td>
+            <td>musl libc ベースの x86_64 ELF をそのまま実行(BusyBox、Python 3、NetSurf、Qt Quick 6 など)<span class="en">Runs musl-based x86_64 ELF binaries as they are (BusyBox, Python 3, NetSurf, Qt Quick 6, etc.)</span></td>
+          </tr>
+          <tr>
+            <td>POSIX の範囲<span class="en">POSIX scope</span></td>
+            <td>—</td>
+            <td>全関数の実装を目標にせず、実用 OSS が動くことを基準に段階的に実装。未対応は標準どおり ENOSYS を返す<span class="en">Does not aim at every function; implements in stages by what real-world OSS needs. Unsupported calls return the standard ENOSYS</span></td>
+          </tr>
+          <tr>
+            <td>デスクトップ<span class="en">Desktop</span></td>
+            <td>BTRON ネイティブのデスクトップ<span class="en">Native BTRON desktop</span></td>
+            <td>自作の Wayland コンポジタ上で Qt Quick 6 のデスクトップ(日本語 IME、ファイラー、メモ帳、PDF ビューア)<span class="en">Qt Quick 6 desktop on a custom Wayland compositor, with a Japanese IME, file explorer, notepad and PDF viewer</span></td>
+          </tr>
+          <tr>
+            <td>ストレージ<span class="en">Storage</span></td>
+            <td>超漢字などの独自形式を扱う実装もある<span class="en">Some handle native formats such as Cho-Kanji volumes</span></td>
+            <td>FAT32 / FatFs で Windows や Linux とデータを交換。超漢字ボリュームは対象外<span class="en">Exchanges data with Windows and Linux via FAT32 / FatFs; Cho-Kanji volumes are not a target</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="en" style="color:var(--muted);font-size:.85rem;margin-top:10px">
+      比較の出典 / Source of the comparison: M. Sokhatsky, “Hideyuki Kishida’s Educational 64-bit Tamazusa OS and 5HT’s B-System: A Rigorous Comparative Audit…”, Nov. 1, 2026 — <a href="https://github.com/msx-btron">MSX BTRON Research</a>.
+    </p>
+  </section>
+
+  <section id="features">
+    <h2>特徴<small>Features</small></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>x86_64 / AArch64 / LoongArch64</h3>
+        <p>64ビット化した T-Kernel 2.0 を共通の核とし、LoongArch64 は試作段階。x86_64 では4階層ページング、プロセスごとの独立したアドレス空間、動的 ELF ローダーを備える。</p>
+        <p class="en">A 64-bit T-Kernel 2.0 as the common core; LoongArch64 is a prototype. On x86_64 it has 4-level paging, a separate address space per process and a dynamic ELF loader.</p>
+      </div>
+      <div class="card">
+        <h3>POSIX OSS Gateway</h3>
+        <p>BusyBox と Python 3 が動作。段階的な4つのマイルストーンで実用 OSS への対応を進めている。</p>
+        <p class="en">BusyBox and Python 3 run today. Compatibility grows through four staged milestones aimed at real-world OSS.</p>
+      </div>
+      <div class="card">
+        <h3>Wayland デスクトップ</h3>
+        <p>自作の Wayland コンポジタと Qt Quick 6 のデスクトップ。日本語入力(SKK 方式)付き。</p>
+        <p class="en">A custom Wayland compositor and a Qt Quick 6 desktop, with Japanese input (SKK-style).</p>
+      </div>
+      <div class="card">
+        <h3>T88-Basic</h3>
+        <p>N88-BASIC 互換の BASIC を搭載。ゲーム、グラフィック、音楽が動作。</p>
+        <p class="en">An N88-BASIC compatible BASIC, with games, graphics and music working.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="status">
+    <h2>現在の状況<small>Current status</small></h2>
+    <div class="bi">
+      開発中のプロジェクトです。動作確認は主に QEMU 上で行っており、できていることと未完の部分を正直に示します。
+      <span class="en">This is work in progress. Testing is mainly done on QEMU, so here is plainly what works and what does not yet.</span>
+    </div>
+    <ul>
+      <li><span class="tag">QEMU</span>x86_64、AArch64、LoongArch64(試作)は QEMU 上で動作確認。実機での起動は未検証。
+        <span class="en">x86_64, AArch64 and LoongArch64 (prototype) are verified on QEMU. Booting on real hardware is not yet verified.</span></li>
+      <li><span class="tag">実験中 / Experimental</span>マルチコア(SMP)は QEMU 上の実験段階で、既定は単一コア。
+        <span class="en">Multicore (SMP) is experimental on QEMU; single-core is the default.</span></li>
+      <li><span class="tag">動作 / Working</span>BusyBox、Python 3、NetSurf、Qt Quick 6 デスクトップ。ソフトウェア描画。
+        <span class="en">BusyBox, Python 3, NetSurf and the Qt Quick 6 desktop, rendered in software.</span></li>
+      <li><span class="tag">未完 / Not yet</span>GPU ドライバは試作段階で未動作。WPE WebKit はビルド済みだが、カーネルのスレッド対応待ち。
+        <span class="en">GPU drivers are prototypes and not operational. WPE WebKit is built but waits for kernel thread support.</span></li>
+      <li><span class="tag">教育用 / Educational</span>タスクディスパッチャは教育用に簡素化されており、リアルタイム性は計測していない。
+        <span class="en">The task dispatcher is simplified for teaching, and real-time characteristics have not been measured.</span></li>
+    </ul>
+  </section>
+
+  <section id="roadmap">
+    <h2>今後の方向<small>Roadmap</small></h2>
+    <ul>
+      <li>言語処理系の追加(C/C++、Python、Ruby など)と Wayland 上での動作
+        <span class="en">More language runtimes (C/C++, Python, Ruby, etc.) running on Wayland</span></li>
+      <li>WPE WebKit の動作(カーネルのスレッド実装が前提)
+        <span class="en">Running WPE WebKit, which depends on kernel thread support</span></li>
+      <li>マルチコア(SMP)の安定化
+        <span class="en">Stabilizing multicore (SMP)</span></li>
+      <li>Windows ソフトウェア資産の移植を支援する仕組みの検討
+        <span class="en">Tooling to help port Windows software assets</span></li>
+      <li>POS、会計、貿易、基幹業務ソフトなどの業務分野
+        <span class="en">Business domains: POS, accounting, trade and core business systems</span></li>
+      <li>RISC-V への移植の検討
+        <span class="en">Considering a RISC-V port</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © Tamazusa.org — Tamazusa OS Project
+    <p style="margin:10px 0 0">This product uses the T-Kernel 2.0 source code under the T-License 2.2 of TRON Forum (<a href="https://www.tron.org">www.tron.org</a>). T-Kernel is a registered trademark of TRON Forum.<br>
+    本製品は、トロンフォーラム(<a href="https://www.tron.org">www.tron.org</a>)の T-License 2.2 に基づき T-Kernel 2.0 ソースコードを利用しています。</p>
+    <!-- GitHub のリンクを入れる場合 / To add a GitHub link:
+    <a href="https://github.com/HIDEYUKI-KISHIDA/tamazusa-os">GitHub</a> -->
+  </div>
+</footer>
 
 </body>
-
 </html>
